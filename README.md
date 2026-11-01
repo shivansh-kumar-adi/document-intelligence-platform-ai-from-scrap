@@ -536,7 +536,7 @@ rag-document-intelligence/
 
 ### Shivansh Kumar
 
-**Software Engineer | Systems Engineering | AI & Full-Stack Development**
+**Software Engineer | Systems Engineering | AI & Full-Stack Development | Data and MLOps Engineer**
 
 - Portfolio: [shivanshonline.in](https://shivanshonline.in)
 - GitHub: [github.com/shivansh07adi-cloud](https://github.com/shivansh07adi-cloud)
