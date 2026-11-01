@@ -1,0 +1,25 @@
+name: rag-intelligence
+services:
+  backend:
+    build: .
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: sqlite:////app/data/rag_intelligence.db
+      UPLOAD_DIR: /app/uploads
+      CHROMA_DIR: /app/chroma_data
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-20}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-sentence-transformers}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-sentence-transformers/all-MiniLM-L6-v2}
+      GENERATION_PROVIDER: ${GENERATION_PROVIDER:-extractive}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
+    volumes: [rag-data:/app/data, rag-uploads:/app/uploads, rag-vectors:/app/chroma_data]
+    ports: ["8000:8000"]
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on: {backend: {condition: service_healthy}}
+    ports: ["3000:80"]
+volumes: {rag-data: {}, rag-uploads: {}, rag-vectors: {}}
+
